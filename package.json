@@ -36,9 +36,15 @@
   "author": "Jakub Synowiec <jsynowiec@users.noreply.github.com>",
   "license": "Apache-2.0",
   "dependencies": {
+    "discord.js": "^14.9.0",
+    "dotenv": "^16.0.3",
+    "gpt-3-encoder": "^1.1.4",
+    "ts-node": "^10.9.1",
     "tslib": "~2.4"
   },
   "volta": {
     "node": "18.12.1"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/justin-carver/cordripper"
 }
