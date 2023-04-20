@@ -6,14 +6,24 @@ import {
 } from 'discord.js';
 import fs from 'fs';
 import * as dotenv from 'dotenv';
+import { init } from './openai.js';
 
 dotenv.config();
 
+/**
+ * Fetches all messages from a user in a Server.
+ * Due to rate limits, this may take a while.
+ *
+ * @param client Discord client Type from discord.js.
+ * @param guildId Server ID in Discord.
+ * @param userId Specific User ID in Discord.
+ * @returns Array of messages from the user.
+ */
 const fetchAllMessagesByUser = async (
   client: Client,
   guildId: string,
   userId: string,
-): Promise<unknown[]> => {
+): Promise<string[]> => {
   const userMessages = [];
   const guild = client.guilds.cache.get(guildId);
 
@@ -64,6 +74,9 @@ const saveMessagesToFile = (messages: unknown): void => {
   fs.writeFileSync('user_messages.json', data);
 };
 
+/**
+ * Specify the intents your bot needs. See the documentation for more information.
+ */
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -75,6 +88,7 @@ const client = new Client({
   ],
 });
 
+// Start the bot!
 client.once('ready', async () => {
   console.log('Bot is ready!');
   try {
@@ -94,4 +108,7 @@ client.once('ready', async () => {
   }
 });
 
-client.login(process.env.TOKEN);
+// Verify the .env file is present!
+// client.login(process.env.TOKEN);
+
+init();
